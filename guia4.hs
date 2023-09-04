@@ -26,13 +26,24 @@ medioFac x | x == 0 = 1
 
 
 sumaDigitos :: Int -> Int
-sumaDigitos n | n `div` 10 == 0 = n --significa q tiene un solo digito
+sumaDigitos n | n < 10 = n --significa q tiene un solo digito
               | otherwise = n `mod` 10 + sumaDigitos(n `div` 10)
 
 
+--todosDigitosIguales :: Int -> Bool
+--todosDigitosIguales n | n < 10 = True
+  --                    | otherwise = digitosIguales (mod n 10) (div n 10)
+
 todosDigitosIguales :: Int -> Bool
-todosDigitosIguales n | n < 10 = True
-                      | otherwise = digitosIguales (mod n 10) (div n 10)
+todosDigitosIguales n | tieneunsolodig n = True
+                      | unidades n == decenas n = todosDigitosIguales(sinUnidades n)
+                      | otherwise = False
+
+    where
+        tieneunsolodig n = n < 10
+        unidades n = mod n 10
+        sinUnidades n = div n 10
+        decenas n = unidades (sinUnidades n)
 
 digitosIguales :: Int -> Int -> Bool
 digitosIguales x y | y < 10 && x == y = True
