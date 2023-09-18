@@ -66,7 +66,7 @@ mismosElementos (x:xs) (y:ys) | x == y && xs == [] && ys == [] = True
 --ej 3
 maximo :: [Int] -> Int
 maximo [x] = x
-maximo (x:y:xs) | x > y = maximo (x:xs) -- x es el 1°elem de la lista, y es el 2°elem, xs es el resto de la lista
+maximo (x:y:xs) | x > y = maximo (x:xs) --  x es el 1°elem de la lista, y es el 2°elem, xs es el resto de la lista
                 | otherwise = maximo (y:xs)
 
 --3.9
