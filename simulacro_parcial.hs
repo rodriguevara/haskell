@@ -56,13 +56,20 @@ requiere: {relaciones no vac´ıa}
 requiere: {relacionesV alidas(relaciones)}
 asegura: {resu es el Strings que aparece m´as veces en las tuplas de relaciones (o alguno de ellos si hay empate)}
 }-}
-paso la lista de tuplas a lista plana 
-cuento el elemento mas repetido de la lista plana
-elementoMasRepetido :: (Eq t) => [t] -> t
-elementoMasRepetido [x] = x
-elementoMasRepetido x (x:y:xs) | cantidadDeApariciones x (x:y:xs) > cantidadDeApariciones y (x:y:xs) = elementoMasRepetido(X:xs)
-                               | otherwise =  
+personaConMasAmigos :: [(String, String)] -> String
+personaConMasAmigos xs = personaConMasAmigosAux (personas xs) xs -- aca entra como datos la lista plana sin repetidos y la lista de duplas
 
+personaConMasAmigosAux :: [String] -> [(String,String)] -> String -- compara
+personaConMasAmigosAux [x] _ = x
+personaConMasAmigosAux (x:y:xs) relaciones | cantDeAmigos x relaciones > cantDeAmigos y relaciones = personaConMasAmigosAux(x:xs) relaciones
+                                           | otherwise = personaConMasAmigosAux(y:xs) relaciones
+
+cantDeAmigos :: String -> [(String,String)] -> Integer
+cantDeAmigos p rel = longitud(amigosDe p rel)
+
+longitud :: [t] -> Integer
+longitud [] = 0
+longitud (x:xs) = 1 + longitud xs
 
 
 {-Si queres usar hunit aca tenes un template

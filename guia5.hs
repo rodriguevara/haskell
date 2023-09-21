@@ -63,11 +63,53 @@ mismosElementos :: (Eq t) => [t] -> [t] -> Bool
 mismosElementos (x:xs) (y:ys) | x == y && xs == [] && ys == [] = True
                               | pertenece x (y:ys) && pertenece y (x:xs) = mismosElementos xs ys
                               | otherwise = False
---ej 3
+
+
+--3.1
+
+sumatoria :: [Int] -> Int
+sumatoria [] = 0
+sumatoria (x:xs) = x + sumatoria(xs)
+
+--3.2
+productoria :: [Int] -> Int
+productoria [] = 1
+productoria (x:xs) = x * productoria(xs)
+
+--3.3
 maximo :: [Int] -> Int
 maximo [x] = x
-maximo (x:y:xs) | x > y = maximo (x:xs) --  x es el 1°elem de la lista, y es el 2°elem, xs es el resto de la lista
-                | otherwise = maximo (y:xs)
+maximo (x:y:xs) | x > y = maximo(x:xs)
+                | otherwise = maximo(y:xs)
+
+--3.4
+sumarN :: Int -> [Int] -> [Int]
+sumarN n [] = []
+sumarN n [x] = [n+x]
+sumarN n (x:xs) = [n+x] ++ sumarN n xs
+
+--3.5
+sumarElPrimero :: [Int] -> [Int]
+sumarElPrimero [x] = [2*x]
+sumarElPrimero (x:xs) = sumarN x (x:xs)
+
+--3.6
+sumarElUltimo :: [Int] -> [Int]
+sumarElUltimo [x] = [2*x]
+sumarElUltimo (xs) = sumarN (last xs) xs
+
+--3.7
+pares :: [Integer] -> [Integer]
+pares [] = []
+pares (x:xs) | mod x 2 == 0 = [x] ++ pares xs
+             | otherwise = [] ++ pares xs
+
+--3.8
+multiplosDeN :: Integer -> [Integer] -> [Integer]
+multiplosDeN n [] = []
+multiplosDeN n (x:xs) | mod x n == 0 = [x] ++ multiplosDeN n xs
+                     | otherwise = [] ++ multiplosDeN n xs
+
 
 --3.9
 ordenar :: [Int] -> [Int]
