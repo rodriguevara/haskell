@@ -11,3 +11,15 @@
 --maximo :: [Int] -> Int que calcula el maximo elemento de una lista no vacia
 --ordenar :: [Int] -> [Int] que ordena los elementos de forma creciente
 --reverso :: [Int] -> [Int] que dada una lista invierte su orden
+
+productoria :: [Int] -> Int
+productoria [] = 1
+productoria (x:xs) = x * productoria xs
+
+sumarN :: Int -> [Int] -> [Int]
+sumarN n [] = []
+sumarN n (x:xs) = (n+x) : sumarN n xs
+
+sumarElPrimero :: [Int] -> [Int]
+sumarElPrimero [] = []  -- Caso base: lista vacía, retorna lista vacía
+sumarElPrimero (x:xs) = (x + head xs) : sumarElPrimero xs

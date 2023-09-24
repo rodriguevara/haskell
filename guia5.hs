@@ -121,3 +121,71 @@ insertarOrdenado :: Int -> [Int] -> [Int]
 insertarOrdenado n [] = [n]
 insertarOrdenado n (x:xs) | n <= x = (n:x:xs)
                           | otherwise = x : (insertarOrdenado n xs)
+
+--4.1
+sacarBlancosRepetidos :: [Char] -> [Char]
+sacarBlancosRepetidos [] = []
+sacarBlancosRepetidos [x] = [x]
+sacarBlancosRepetidos (' ':' ':xs)  = sacarBlancosRepetidos (' ':xs)
+sacarBlancosRepetidos (x:y:xs) = x : sacarBlancosRepetidos (y:xs)
+
+--4.2
+contarPalabras :: [Char] -> Integer
+contarPalabras xs = contarEspacios (sacarBlancosRepetidos xs) + 1
+
+contarEspacios :: [Char] -> Integer
+contarEspacios [] = 0
+contarEspacios (' ':xs) = 1 + contarEspacios xs
+contarEspacios (x:xs) = contarEspacios xs
+
+--4.3
+palabras :: [Char] -> [[Char]]
+palabras t = extraerPalabras t []
+
+extraerPalabras :: [Char] -> [Char] -> [[Char]]
+extraerPalabras [] [] = []
+extraerPalabras [] palabra = [palabra]
+extraerPalabras (x:xs) []
+    | x == ' ' = extraerPalabras xs []
+extraerPalabras (x:xs) palabra
+    | x == ' ' = palabra : extraerPalabras xs []
+    | otherwise = extraerPalabras xs (palabra ++ [x])
+
+--4.4
+palabraMasLarga :: [Char] -> [Char]
+palabraMasLarga xs = palabraMasLargaAux (palabras xs)
+
+palabraMasLargaAux :: [[Char]] -> [Char]
+palabraMasLargaAux [] = []
+palabraMasLargaAux (x:[])  = x
+palabraMasLargaAux (x:y:xs) | length x > length y = palabraMasLargaAux (x:xs)
+                            | otherwise = palabraMasLargaAux (y:xs)
+
+--4.5
+aplanar :: [[Char]] -> [Char]
+aplanar [] = []
+aplanar (x:xs) = x ++ aplanar xs
+
+--4.6
+aplanarConBlancos :: [[Char]] -> [Char]
+aplanarConBlancos [] = []
+aplanarConBlancos (x:xs) | xs == [] = x
+               | otherwise = x ++ [' '] ++ aplanarConBlancos xs
+
+--4.7
+aplanarConNBlancos :: [[Char]] -> Integer -> [Char]
+aplanarConNBlancos [] _ = []
+aplanarConNBlancos (x:xs) n | xs == [] = x
+                            | otherwise = x ++ nBlancos n ++ aplanarConNBlancos xs n
+
+nBlancos :: Integer -> [Char]
+nBlancos 0 = []
+nBlancos n = [' '] ++ nBlancos (n-1)
+
+--5.1
+sumaAcumulada :: (Num t) => [t] -> [t]
+sumaAcumulada [] = []
+sumaAcumulada xs = sumaAcumuladaAux 0 xs
+ where
+  sumaAcumuladaAux _ [] = []
+  sumaAcumuladaAux s (x:xs) = (s+x) : sumaAcumuladaAux (s+x) xs
